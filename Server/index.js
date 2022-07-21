@@ -22,6 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.use('/', require('./routes/index'));
+app.use('/charts', require('./routes/charts'));
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`)
