@@ -9547,7 +9547,34 @@ router.get('/list',async(req,res)=>{
         const {genres} = global
         const genreData=genres.filter(genre=>genre.name===genre_key)
         console.log("CHART DATA",genreData)
-        res.send(genreData)
+        console.log(genreData[0].listid)
+        //Fetch chart data relevant to obtained genre
+        try{
+            const options = {
+                method: 'GET',
+                url: 'https://shazam.p.rapidapi.com/charts/track',
+                params: {
+                    locale: 'en-US',
+                    listId: genreData[0].listid,
+                    pageSize: '20',
+                    startFrom: '0'
+                },
+                headers: {
+                    'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+                    'X-RapidAPI-Host': process.env.API_HOST
+                }
+            };
+            
+            const response = await axios(options)
+            const genreListData=response.data
+            // console.log("GENRE LIST DATA",genreListData)
+            res.send(genreListData)
+        }
+        catch (error) {
+            console.log(error)
+            res.send(error)
+        }
+        
     }
     catch(err){
         console.log(err)
