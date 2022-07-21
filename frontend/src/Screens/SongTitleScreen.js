@@ -18,16 +18,26 @@ const SongTitleScreen = () => {
     console.log(data)
     const [songData, setSongData] = useState(null)
 
+    const [chartData,setChartData] = useState(null)
+
     useEffect(() => {
         async function fetchData() {
             if (!songData) {
                 const response = await axios.get(`http://localhost:8000/song/`, { params: { songid: key } })
                 setSongData(response.data)
             }
+
+            if(!chartData && songData){
+                const response = await axios.get(`http://localhost:8000/charts/list/`, { params: { genre: songData.genres.primary }})
+                setChartData(response.data)
+                
+            }
+
         }
         fetchData()
     }, [songData])
     console.log(songData)
+    console.log("chartData", chartData)
 
     return (
         <>
@@ -93,13 +103,13 @@ const SongTitleScreen = () => {
 
                                             {songData.sections[0].metadata[1].text &&
                                                 <span className='ml-1'>Label: {songData.sections[0].metadata[1].text}</span>
-
                                             }
 
                                         </span>
                                     </div>
                                     <p className="leading-relaxed">
                                         <MediaPlayer />
+                                        {/* <MVideo /> */}
                                     </p>
                                     <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                                         <div className="flex">
@@ -151,9 +161,9 @@ const SongTitleScreen = () => {
 
                         </div>
                     </section>
-                    {/* <MVideo /> */}
+                    
                     {songData && <Lyrics lyrics={songData.sections[1]} writers={songData.sections[1].footer} meta={songData} />}
-                    {/* <RelatedWorks /> */}
+                    {chartData && <RelatedWorks charts={chartData}/>}
 
                 </>
 
