@@ -10,6 +10,8 @@ import MVideo from '../components/MVideo';
 import Lyrics from '../components/Lyrics';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import Footer from '../components/Footer';
+import ArtistSection from '../components/ArtistSection';
 
 const SongTitleScreen = () => {
     const { id: key } = useParams();
@@ -43,10 +45,15 @@ const SongTitleScreen = () => {
         <>
             {songData &&
                 <>
+                
+
                     <section className="text-gray-600 body-font overflow-hidden">
+                    <ArtistSection image={songData && songData.images.background} artistName={songData && songData.subtitle}/>
 
                         <div className="container px-5 py-24 mx-auto">
+                            
                             <div className="lg:w-4/5 mx-auto flex flex-wrap">
+                                
                                 <img
                                     alt="album-art"
                                     className="lg:w-1/3 w-full lg:h-auto h-64 object-cover object-center rounded"
@@ -145,7 +152,7 @@ const SongTitleScreen = () => {
                           </div> */}
                                     </div>
                                     <div className="flex">
-                                        <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                                        <button className=" text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">
                                             <a href="#lyrics">View Lyrics</a>
                                         </button>
 
@@ -164,6 +171,7 @@ const SongTitleScreen = () => {
                     
                     {songData && <Lyrics lyrics={songData.sections[1]} writers={songData.sections[1].footer} meta={songData} />}
                     {chartData && <RelatedWorks charts={chartData}/>}
+                    <Footer />
 
                 </>
 

@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header';
-import SearchScreen from './components/SearchScreen';
+import SearchScreen from './Screens/SearchScreen';
 import SongTitleScreen
  from './Screens/SongTitleScreen';
  import NavBar from './components/NavBar';
@@ -9,7 +9,7 @@ import SongTitleScreen
 const App=()=> {
   return (
     <Router>
-      <main className='py-3'>
+      <main>
         <NavBar />
         <Routes>
           <Route path='/' element={<Header/>}></Route>
