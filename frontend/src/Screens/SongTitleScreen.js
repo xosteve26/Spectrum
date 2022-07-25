@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import ArtistSection from '../components/ArtistSection';
+import ArtistRelatedWorks from '../components/ArtistRelatedWorks';
 
 const SongTitleScreen = () => {
     const { id: key } = useParams();
@@ -19,8 +20,8 @@ const SongTitleScreen = () => {
     const [data, setData] = useState(key ? key : null)
     console.log(data)
     const [songData, setSongData] = useState(null)
-
     const [chartData,setChartData] = useState(null)
+    const [artistData, setArtistData] = useState(null)
 
     useEffect(() => {
         async function fetchData() {
@@ -35,17 +36,23 @@ const SongTitleScreen = () => {
                 
             }
 
+            if(!artistData && songData){
+                const response = await axios.get(`http://localhost:8000/artist/artist-info`, { params: { artistid: songData.artists[0].adamid }})
+                setArtistData(response.data)
+            }
+
         }
         fetchData()
     }, [songData])
     console.log(songData)
+    console.log("ARTIST INFO",artistData)
     console.log("chartData", chartData)
 
     return (
         <>
             {songData &&
                 <>
-                
+           
 
                     <section className="text-gray-600 body-font overflow-hidden">
                     <ArtistSection image={songData && songData.images.background} artistName={songData && songData.subtitle}/>
@@ -170,7 +177,9 @@ const SongTitleScreen = () => {
                     </section>
                     
                     {songData && <Lyrics lyrics={songData.sections[1]} writers={songData.sections[1].footer} meta={songData} />}
+                    {artistData && <ArtistRelatedWorks data={artistData} />}
                     {chartData && <RelatedWorks charts={chartData}/>}
+                    
                     <Footer />
 
                 </>
