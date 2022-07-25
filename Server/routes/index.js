@@ -6,11 +6,11 @@ const router = express.Router()
 function headers(term){
     const options={
         method: 'GET',
-        url: process.env.SHAZAM_URL,
+        url: 'https://shazam.p.rapidapi.com/search',
         params: { term: term, locale: 'en-US', offset: '0', limit: '5' },
         headers: {
-            'X-RapidAPI-Key': RAPID_API_KEY,
-            'X-RapidAPI-Host': API_HOST
+            'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+            'X-RapidAPI-Host': process.env.API_HOST
         }
     }
     return options
@@ -23,11 +23,13 @@ router.get('/health', (req, res) => {
 
 router.get('/search', async(req, res) => {
     const term = req.query.term
-    // const options = headers(term)
+    const options = headers(term)
     console.log(term)
    
     try{
         // const response = await axios(options)
+        // const data=response.data
+        // console.log(data)
         const data = {
             "tracks": {
                 "hits": [
