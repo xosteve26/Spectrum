@@ -8,15 +8,15 @@ const NavBar = () => {
     const [deliverables, setDeliverables] = useState(false);
     return (
         <>
-            <div className="bg-green-400 h-full w-full">
-                <nav className="bg-green-400 shadow xl:block hidden">
+            <div className=" h-full w-full">
+                <nav className="bg-black shadow xl:block hidden">
                     <div className="mx-auto container px-6 py-2 xl:py-0">
                         <div className="flex items-center justify-between">
                             <div className="inset-y-0 left-0 flex items-center xl:hidden">
-                                <div className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                                <div className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-100 focus:outline-none transition duration-150 ease-in-out">
                                     <div className="visible xl:hidden">
-                                        <ul className="p-2 border-r bg-white absolute rounded left-0 right-0 shadow mt-8 md:mt-8 hidden">
-                                            <li className="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
+                                        <ul className="p-2 border-r bg-green-500 absolute rounded left-0 right-0 shadow mt-8 md:mt-8 hidden">
+                                            <li className="flex xl:hidden cursor-pointer text-white text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
                                                 <div className="flex items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-grid" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" />
@@ -28,7 +28,7 @@ const NavBar = () => {
                                                     <span className="ml-2 font-bold">Dashboard</span>
                                                 </div>
                                             </li>
-                                            <li className="flex xl:hidden flex-col cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none flex justify-center">
+                                            <li className="flex xl:hidden flex-col cursor-pointer text-white text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none flex justify-center">
                                                 <div className="flex items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-puzzle" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" />
@@ -79,13 +79,13 @@ const NavBar = () => {
                                                 </div>
                                             </li>
                                         </ul>
-                                        <svg onclick="MenuHandler(this,true)" aria-haspopup="true" aria-label="Main Menu" xmlns="http://www.w3.org/2000/svg" className="show-m-menu icon icon-tabler icon-tabler-menu" width={28} height={28} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                        <svg onClick="MenuHandler(this,true)" aria-haspopup="true" aria-label="Main Menu" xmlns="http://www.w3.org/2000/svg" className="show-m-menu icon icon-tabler icon-tabler-menu" width={28} height={28} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" />
                                             <line x1={4} y1={8} x2={20} y2={8} />
                                             <line x1={4} y1={16} x2={20} y2={16} />
                                         </svg>
                                     </div>
-                                    <div className="hidden close-m-menu text-gray-700" onclick="MenuHandler(this,false)">
+                                    <div className="hidden close-m-menu text-gray-700" onClick="MenuHandler(this,false)">
                                         <svg aria-label="Close" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" />
                                             <line x1={18} y1={6} x2={6} y2={18} />
@@ -96,13 +96,13 @@ const NavBar = () => {
                             </div>
                             <div className="flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start">
                                 <div className="flex items-center">
-                                    <img src="/Spectrum-logos_transparent.png" className="h-32 w-36"/>
+                                    <a href="/"><img src="/Spectrum-logos_white.png" className="h-32 w-36" /></a>
                                     {/* <h2 className="hidden sm:block text-base text-gray-700 font-bold leading-normal pl-3">The North</h2> */}
                                 </div>
                             </div>
                             <div className="flex">
                                 <div className="hidden xl:flex md:mr-6 xl:mr-16">
-                                    <a href="javascript: void(0)" className="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                                    <a href="javascript: void(0)" className="flex px-5 items-center py-6 text-sm leading-5 text-white hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
                                         <span className="mr-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-grid" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -114,7 +114,7 @@ const NavBar = () => {
                                         </span>
                                         Dashboard
                                     </a>
-                                    <a href="javascript: void(0)" className="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                                    <a href="javascript: void(0)" className="flex px-5 items-center py-6 text-sm leading-5 text-white hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
                                         <span className="mr-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-puzzle" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -123,7 +123,7 @@ const NavBar = () => {
                                         </span>
                                         Products
                                     </a>
-                                    <a href="javascript: void(0)" className="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                                    <a href="javascript: void(0)" className="flex px-5 items-center py-6 text-sm leading-5 text-white hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
                                         <span className="mr-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-compass" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -133,7 +133,7 @@ const NavBar = () => {
                                         </span>
                                         Performance
                                     </a>
-                                    <a href="javascript: void(0)" className="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                                    <a href="javascript: void(0)" className="flex px-5 items-center py-6 text-sm leading-5 text-white hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
                                         <span className="mr-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-code" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -199,7 +199,7 @@ const NavBar = () => {
                     </div>
                 </nav>
                 <nav>
-                    <div className="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40">
+                    <div className="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-black fixed top-0 z-40">
                         <div className="w-24">
                             <svg xmlns="http://www.w3.org/2000/svg" width={43} height={44} viewBox="0 0 43 44" fill="none">
                                 <path
@@ -231,7 +231,7 @@ const NavBar = () => {
                     {/*Mobile responsive sidebar*/}
                     <div className={show ? "w-full xl:hidden h-full absolute z-40  transform  translate-x-0 " : "   w-full xl:hidden h-full absolute z-40  transform -translate-x-full"}>
                         <div className="bg-gray-800 opacity-50 w-full h-full" onClick={() => setShow(!show)} />
-                        <div className="w-64 z-40 fixed overflow-y-auto z-40 top-0 bg-white shadow h-full flex-col justify-between xl:hidden pb-4 transition duration-150 ease-in-out">
+                        <div className="w-64 z-40 fixed overflow-y-auto z-40 top-0 bg-gradient-to-b from-black to-gray-900 shadow h-full flex-col justify-between xl:hidden pb-4 transition duration-150 ease-in-out">
                             <div className="px-6 h-full">
                                 <div className="flex flex-col justify-between h-full w-full">
                                     <div>
@@ -246,9 +246,9 @@ const NavBar = () => {
                                                             fill="#667EEA"
                                                         />
                                                     </svg>
-                                                    <p className="text-base md:text-2xl text-gray-800 ml-3">The North</p>
+                                                    <p className="text-base md:text-2xl text-gray-300 ml-3">The North</p>
                                                 </div>
-                                                <div id="cross" className="text-gray-800" onClick={() => setShow(!show)}>
+                                                <div id="cross" className="text-gray-300" onClick={() => setShow(!show)}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" />
                                                         <line x1={18} y1={6} x2={6} y2={18} />
@@ -261,7 +261,7 @@ const NavBar = () => {
                                             <a className="cursor-pointer">
                                                 <li className="text-gray-800 pt-10">
                                                     <div className="flex items-center">
-                                                        <div className="w-6 h-6 md:w-8 md:h-8 text-indigo-700">
+                                                        <div className="w-6 h-6 md:w-8 md:h-8 text-gray-300 hover:text-green-500">
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-grid" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" />
                                                                 <rect x={4} y={4} width={6} height={6} rx={1} />
@@ -270,7 +270,7 @@ const NavBar = () => {
                                                                 <rect x={14} y={14} width={6} height={6} rx={1} />
                                                             </svg>
                                                         </div>
-                                                        <p className="text-indigo-700 xl:text-base text-base ml-3">Dashboard</p>
+                                                        <p className="text-gray-300 xl:text-base text-base ml-3 hover:text-green-500">Dashboard</p>
                                                     </div>
                                                 </li>
                                             </a>
@@ -278,13 +278,13 @@ const NavBar = () => {
                                                 <li className="text-gray-800 pt-8">
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center">
-                                                            <div className="w-6 h-6 md:w-8 md:h-8 text-gray-800">
+                                                            <div className="w-6 h-6 md:w-8 md:h-8 text-gray-300">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-puzzle" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                     <path stroke="none" d="M0 0h24v24H0z" />
                                                                     <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
                                                                 </svg>
                                                             </div>
-                                                            <p className="text-gray-800 xl:text-base md:text-2xl text-base ml-3">Products</p>
+                                                            <p className="text-gray-300 xl:text-base md:text-2xl text-base ml-3 hover:text-green-500">Products</p>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -292,21 +292,21 @@ const NavBar = () => {
                                             <a className="cursor-pointer">
                                                 <li className="text-gray-800 pt-8">
                                                     <div className="flex items-center">
-                                                        <div className="w-6 h-6 md:w-8 md:h-8 text-gray-800">
+                                                        <div className="w-6 h-6 md:w-8 md:h-8 text-gray-300">
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-compass" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" />
                                                                 <polyline points="8 16 10 10 16 8 14 14 8 16" />
                                                                 <circle cx={12} cy={12} r={9} />
                                                             </svg>
                                                         </div>
-                                                        <p className="text-gray-800 xl:text-base md:text-2xl text-base ml-3">Performance</p>
+                                                        <p className="text-gray-300 xl:text-base md:text-2xl text-base ml-3 hover:text-green-500">Performance</p>
                                                     </div>
                                                 </li>
                                             </a>
                                             <li className="text-gray-800 pt-8 cursor-pointer">
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center">
-                                                        <div className="w-6 h-6 md:w-8 md:h-8 text-gray-800">
+                                                        <div className="w-6 h-6 md:w-8 md:h-8 text-gray-300">
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-code" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" />
                                                                 <polyline points="7 8 3 12 7 16" />
@@ -314,7 +314,7 @@ const NavBar = () => {
                                                                 <line x1={14} y1={4} x2={10} y2={20} />
                                                             </svg>
                                                         </div>
-                                                        <p className="text-gray-800 xl:text-base md:text-2xl text-base ml-3">Deliverables</p>
+                                                        <p className="text-gray-300 xl:text-base md:text-2xl text-base ml-3 hover:text-green-500">Deliverables</p>
                                                     </div>
                                                 </div>
                                             </li>
@@ -330,17 +330,17 @@ const NavBar = () => {
                                                         <line x1={21} y1={21} x2={15} y2={15} />
                                                     </svg>
                                                 </div>
-                                                <input className="bg-gray-100 focus:outline-none rounded w-full text-sm text-gray-500  pl-10 py-2" type="text" placeholder="Search" />
+                                                <input className="bg-gray-800 focus:outline-none rounded w-full text-sm text-gray-300  pl-10 py-2" type="text" placeholder="Search" />
                                             </div>
                                         </div>
                                         <div className="border-t border-gray-300">
                                             <div className="w-full flex items-center justify-between pt-1">
                                                 <div className="flex items-center">
                                                     <img alt="profile-pic" src="https://tuk-cdn.s3.amazonaws.com/assets/components/boxed_layout/bl_1.png" className="w-8 h-8 rounded-md" />
-                                                    <p className=" text-gray-800 text-base leading-4 ml-2">Jane Doe</p>
+                                                    <p className=" text-gray-300 text-base leading-4 ml-2">Jane Doe</p>
                                                 </div>
                                                 <ul className="flex">
-                                                    <li className="cursor-pointer text-gray-800 pt-5 pb-3">
+                                                    <li className="cursor-pointer text-gray-300 pt-5 pb-3">
                                                         <div className="w-6 h-6 md:w-8 md:h-8">
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-messages" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -349,7 +349,7 @@ const NavBar = () => {
                                                             </svg>
                                                         </div>
                                                     </li>
-                                                    <li className="cursor-pointer text-gray-800 pt-5 pb-3 pl-3">
+                                                    <li className="cursor-pointer text-gray-300 pt-5 pb-3 pl-3">
                                                         <div className="w-6 h-6 md:w-8 md:h-8">
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-bell" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" />
