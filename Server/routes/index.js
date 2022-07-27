@@ -2,6 +2,12 @@ const express = require('express')
 const axios = require("axios");
 require('dotenv').config()
 const router = express.Router()
+const multer=require('multer');
+const upload = multer();
+const request = require('request');
+var fs = require('fs');
+const shortid = require('shortid');
+const path=require('path')
 
 function headers(term){
     const options={
@@ -605,6 +611,34 @@ router.get('/search', async(req, res) => {
     }
 
     
+})
+
+router.post('/audio' ,upload.any(),(req, res) => {
+
+    const formData = req.body.data;
+    console.log(formData)
+ 
+    var file_name=shortid.generate()+".mp3";
+    fs.writeFileSync(path.join(__dirname,'../file_uploads/'+file_name), Buffer.from(formData.replace('data:audio/mp3; codecs=opus;base64,', ''),'base64'))
+
+
+    const options = {
+        method: 'POST',
+        url: 'https://shazam-core.p.rapidapi.com/v1/tracks/recognize',
+        headers: {
+            'content-type': 'multipart/form-data; boundary=---011000010111000001101001',
+            'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+            'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
+            useQueryString: true
+        },
+        formData: { file: fs.createReadStream(path.join(__dirname, '../file_uploads/' + file_name))}
+    };
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+
+        res.send(body);
+    });
+   
 })
 
 router.get('/auto-complete', async (req, res) => {

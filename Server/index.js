@@ -2,9 +2,16 @@ const express = require('express')
 const dotenv = require('dotenv')
 const cors = require("cors")
 const app=express();
+const bodyParser = require('body-parser');
 
 dotenv.config({ path: './config/config.env' });
 var PORT=process.env.PORT || 8000;
+
+// support parsing of application/json type post data
+app.use(bodyParser.json());
+
+//support parsing of application/x-www-form-urlencoded post data
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json())
 
