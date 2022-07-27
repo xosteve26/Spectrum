@@ -5,6 +5,7 @@ import SearchScreen from './Screens/SearchScreen';
 import SongTitleScreen
  from './Screens/SongTitleScreen';
  import NavBar from './components/NavBar';
+ import Footer from './components/Footer';
  
 const App=()=> {
   return (
@@ -16,6 +17,7 @@ const App=()=> {
           <Route path='/search/:id' element={<SearchScreen />}></Route>
           <Route path='/song/:id' element={<SongTitleScreen />}></Route>
         </Routes>
+        <Footer />
       </main>
     </Router>
     
