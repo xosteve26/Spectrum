@@ -13,6 +13,8 @@ import { useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import ArtistSection from '../components/ArtistSection';
 import ArtistRelatedWorks from '../components/ArtistRelatedWorks';
+import RelatedWorksSkeleton from '../components/RelatedWorksSkeleton';
+import ArtistRelatedWorkSkeleton from '../components/ArtistRelatedWorkSkeleton';
 
 const SongTitleScreen = () => {
     const { id: key } = useParams();
@@ -56,8 +58,6 @@ const SongTitleScreen = () => {
         <>
             {songData &&
                 <>
-           
-
                     <section className="text-gray-300 body-font overflow-hidden bg-gray-900">
                     <ArtistSection image={songData && songData.images.background} artistName={songData && songData.subtitle}/>
 
@@ -156,8 +156,9 @@ const SongTitleScreen = () => {
                     </section>
                     
                     {songData && <Lyrics lyrics={songData.sections[1]} writers={songData.sections[1].footer} meta={songData} />}
-                    {artistData && <ArtistRelatedWorks data={artistData} />}
-                    {chartData && <RelatedWorks charts={chartData}/>}
+                    {artistData ? <ArtistRelatedWorks data={artistData} /> : <ArtistRelatedWorkSkeleton />}
+                    {chartData ? <RelatedWorks charts={chartData} /> : <RelatedWorksSkeleton />}
+              
                     
       
 

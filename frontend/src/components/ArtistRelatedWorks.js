@@ -10,6 +10,7 @@ const ArtistRelatedWorks = ({data}) => {
         name: key,
         rating: albums[key]
     }));
+
     albumsList.reverse()
     const aList = []
     for (let i = 0; i < albumsList.length; i++) {
@@ -26,7 +27,6 @@ const ArtistRelatedWorks = ({data}) => {
         }
     }
 
-    console.log(aList);
   return (
     <>
           <section className="text-gray-600 body-font bg-gray-900">
@@ -51,7 +51,7 @@ const ArtistRelatedWorks = ({data}) => {
                         </div>
                     </section>
                 )
-            })}
+            }) }      
 
             </div>
             </div>
