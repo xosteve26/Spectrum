@@ -615,29 +615,374 @@ router.get('/search', async(req, res) => {
 
 router.post('/audio' ,upload.any(),(req, res) => {
 
-    const formData = req.body.data;
-    console.log(formData)
+    // const formData = req.body.data;
+    // console.log(formData)
  
-    var file_name=shortid.generate()+".mp3";
-    fs.writeFileSync(path.join(__dirname,'../file_uploads/'+file_name), Buffer.from(formData.replace('data:audio/mp3; codecs=opus;base64,', ''),'base64'))
+    // var file_name=shortid.generate()+".mp3";
+    // fs.writeFileSync(path.join(__dirname,'../file_uploads/'+file_name), Buffer.from(formData.replace('data:audio/mp3; codecs=opus;base64,', ''),'base64'))
 
 
-    const options = {
-        method: 'POST',
-        url: 'https://shazam-core.p.rapidapi.com/v1/tracks/recognize',
-        headers: {
-            'content-type': 'multipart/form-data; boundary=---011000010111000001101001',
-            'X-RapidAPI-Key': process.env.RAPID_API_KEY,
-            'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
-            useQueryString: true
+    // const options = {
+    //     method: 'POST',
+    //     url: 'https://shazam-core.p.rapidapi.com/v1/tracks/recognize',
+    //     headers: {
+    //         'content-type': 'multipart/form-data; boundary=---011000010111000001101001',
+    //         'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+    //         'X-RapidAPI-Host': 'shazam-core.p.rapidapi.com',
+    //         useQueryString: true
+    //     },
+    //     formData: { file: fs.createReadStream(path.join(__dirname, '../file_uploads/' + file_name))}
+    // };
+    // request(options, function (error, response, body) {
+    //     if (error) throw new Error(error);
+    //     console.log(body);
+        
+    //     res.send(data);
+    // });
+
+    const data ={
+        "location": {
+            "accuracy": 0.01,
+            "altitude": 300.0,
+            "latitude": 45.0,
+            "longitude": 2.0
         },
-        formData: { file: fs.createReadStream(path.join(__dirname, '../file_uploads/' + file_name))}
-    };
-    request(options, function (error, response, body) {
-        if (error) throw new Error(error);
-
-        res.send(body);
-    });
+        "matches": [
+            {
+                "frequencyskew": 0.0004028082,
+                "id": "347637006",
+                "offset": 32.103580078,
+                "timeskew": 0.00095283985
+            }
+        ],
+        "tagid": "9f3f78ca-f99d-41bc-9e78-d9c668cee016",
+        "timestamp": 1135626341,
+        "timezone": "Europe/Paris",
+        "track": {
+            "albumadamid": "1440984578",
+            "artists": [
+                {
+                    "adamid": "1352449404",
+                    "id": "42"
+                }
+            ],
+            "genres": {
+                "primary": "Hip-Hop/Rap"
+            },
+            "highlightsurls": {
+                "artisthighlightsurl": "https://cdn.shazam.com/video/v3/en/US/android/1352449404/highlights?affiliate=mttnagencyid%3Ds2n%26mttnsiteid%3D125115%26mttn3pid%3DApple-Shazam%26mttnsub1%3DShazam_android_am%26mttnsub2%3D5348615A-616D-3235-3830-44754D6D5973%26itscg%3D30201%26app%3Dmusic%26itsct%3DShazam_android_am"
+            },
+            "hub": {
+                "actions": [
+                    {
+                        "id": "1440984706",
+                        "name": "apple",
+                        "type": "applemusicplay"
+                    },
+                    {
+                        "name": "apple",
+                        "type": "uri",
+                        "uri": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/3a/90/7d/3a907da4-1c53-374f-b52d-10dc11fab7f0/mzaf_17398245835546616713.plus.aac.ep.m4a"
+                    }
+                ],
+                "displayname": "APPLE MUSIC",
+                "explicit": true,
+                "image": "https://images.shazam.com/static/icons/hub/android/v5/applemusic_{scalefactor}.png",
+                "options": [
+                    {
+                        "actions": [
+                            {
+                                "name": "hub:applemusic:deeplink",
+                                "type": "intent",
+                                "uri": "intent://music.apple.com/us/album/run-this-town-feat-rihanna-kanye-west/1440984578?i=1440984706&mttnagencyid=s2n&mttnsiteid=125115&mttn3pid=Apple-Shazam&mttnsub1=Shazam_android_am&mttnsub2=5348615A-616D-3235-3830-44754D6D5973&itscg=30201&app=music&itsct=Shazam_android_am#Intent;scheme=http;package=com.apple.android.music;action=android.intent.action.VIEW;end"
+                            },
+                            {
+                                "id": "1440984706",
+                                "name": "hub:applemusic:connect",
+                                "type": "applemusicconnect",
+                                "uri": "https://unsupported.shazam.com"
+                            },
+                            {
+                                "name": "hub:applemusic:androidstore",
+                                "type": "uri",
+                                "uri": "https://play.google.com/store/apps/details?id=com.apple.android.music&referrer=utm_source=https%3A%2F%2Fmusic.apple.com%2Fsubscribe%3Fmttnagencyid%3Ds2n%26mttnsiteid%3D125115%26mttn3pid%3DApple-Shazam%26mttnsub1%3DShazam_android_am%26mttnsub2%3D5348615A-616D-3235-3830-44754D6D5973%26itscg%3D30201%26app%3Dmusic%26itsct%3DShazam_android_am"
+                            }
+                        ],
+                        "beacondata": {
+                            "providername": "applemusic",
+                            "type": "open"
+                        },
+                        "caption": "OPEN",
+                        "colouroverflowimage": false,
+                        "image": "https://images.shazam.com/static/icons/hub/android/v5/overflow-open-option_{scalefactor}.png",
+                        "listcaption": "Open in Apple Music",
+                        "overflowimage": "https://images.shazam.com/static/icons/hub/android/v5/applemusic-overflow_{scalefactor}.png",
+                        "providername": "applemusic",
+                        "type": "open"
+                    }
+                ],
+                "providers": [
+                    {
+                        "actions": [
+                            {
+                                "name": "hub:spotify:searchdeeplink",
+                                "type": "uri",
+                                "uri": "spotify:search:Run%20This%20Town%20JAY-Z"
+                            }
+                        ],
+                        "caption": "Open in Spotify",
+                        "images": {
+                            "default": "https://images.shazam.com/static/icons/hub/android/v5/spotify_{scalefactor}.png",
+                            "overflow": "https://images.shazam.com/static/icons/hub/android/v5/spotify-overflow_{scalefactor}.png"
+                        },
+                        "type": "SPOTIFY"
+                    },
+                    {
+                        "actions": [
+                            {
+                                "name": "hub:youtubemusic:androiddeeplink",
+                                "type": "uri",
+                                "uri": "https://music.youtube.com/search?q=Run+This+Town+Jay-Z&feature=shazam"
+                            }
+                        ],
+                        "caption": "Open in YouTube Music",
+                        "images": {
+                            "default": "https://images.shazam.com/static/icons/hub/android/v5/youtubemusic_{scalefactor}.png",
+                            "overflow": "https://images.shazam.com/static/icons/hub/android/v5/youtubemusic-overflow_{scalefactor}.png"
+                        },
+                        "type": "YOUTUBEMUSIC"
+                    },
+                    {
+                        "actions": [
+                            {
+                                "name": "hub:deezer:searchdeeplink",
+                                "type": "uri",
+                                "uri": "deezer-query://www.deezer.com/play?query=%7Btrack%3A%27Run+This+Town%27%20artist%3A%27Jay-Z%27%7D"
+                            }
+                        ],
+                        "caption": "Open in Deezer",
+                        "images": {
+                            "default": "https://images.shazam.com/static/icons/hub/android/v5/deezer_{scalefactor}.png",
+                            "overflow": "https://images.shazam.com/static/icons/hub/android/v5/deezer-overflow_{scalefactor}.png"
+                        },
+                        "type": "DEEZER"
+                    }
+                ],
+                "type": "APPLEMUSIC"
+            },
+            "images": {
+                "background": "https://is4-ssl.mzstatic.com/image/thumb/Features125/v4/9c/72/11/9c721146-12e5-beee-4fa1-4a9042a9f42f/pr_source.png/800x800cc.jpg",
+                "coverart": "https://is5-ssl.mzstatic.com/image/thumb/Music114/v4/2b/ea/96/2bea9645-9c62-b1a1-ff70-db3a4db1149c/10UMGIM29885.rgb.jpg/400x400cc.jpg",
+                "coverarthq": "https://is5-ssl.mzstatic.com/image/thumb/Music114/v4/2b/ea/96/2bea9645-9c62-b1a1-ff70-db3a4db1149c/10UMGIM29885.rgb.jpg/400x400cc.jpg",
+                "joecolor": "b:fcfbf7p:000000s:313431t:323231q:5a5b59"
+            },
+            "isrc": "USJZ10900010",
+            "key": "49704893",
+            "layout": "5",
+            "relatedtracksurl": "https://cdn.shazam.com/shazam/v3/en/US/android/-/tracks/track-similarities-id-49704893?startFrom=0&pageSize=20&connected=",
+            "sections": [
+                {
+                    "metadata": [
+                        {
+                            "text": "The Hits Collection, Vol. One (Deluxe Edition with Videos)",
+                            "title": "Album"
+                        },
+                        {
+                            "text": "Roc Nation / IDJ",
+                            "title": "Label"
+                        },
+                        {
+                            "text": "2009",
+                            "title": "Released"
+                        }
+                    ],
+                    "metapages": [
+                        {
+                            "caption": "JAY-Z",
+                            "image": "https://is4-ssl.mzstatic.com/image/thumb/Features125/v4/9c/72/11/9c721146-12e5-beee-4fa1-4a9042a9f42f/pr_source.png/800x800cc.jpg"
+                        },
+                        {
+                            "caption": "Run This Town",
+                            "image": "https://is5-ssl.mzstatic.com/image/thumb/Music114/v4/2b/ea/96/2bea9645-9c62-b1a1-ff70-db3a4db1149c/10UMGIM29885.rgb.jpg/400x400cc.jpg"
+                        }
+                    ],
+                    "tabname": "Song",
+                    "type": "SONG"
+                },
+                {
+                    "beacondata": {
+                        "commontrackid": "77157009",
+                        "lyricsid": "17405550",
+                        "providername": "musixmatch"
+                    },
+                    "footer": "Writer(s): Kanye Omari West, Ernest Dion Wilson, Shawn C Carter, Robyn R Fenty, Athanasios Alatas, Jeffrey Nath Bhasker\nLyrics powered by www.musixmatch.com",
+                    "tabname": "Lyrics",
+                    "text": [
+                        "Feel it comin' in the air",
+                        "Hear the screams from everywhere",
+                        "I'm addicted to the thrill",
+                        "It's a dangerous love affair",
+                        "Can't be scared when it goes down",
+                        "Got a problem, tell me now",
+                        "Only thing that's on my mind",
+                        "Is who's gon' run this town tonight (everybody bounce, come on)",
+                        "Is who's gon' run this town tonight",
+                        "We gon' run this town",
+                        "",
+                        "We are",
+                        "Yeah I said it",
+                        "We are",
+                        "This is Roc Nation",
+                        "Pledge your allegiance",
+                        "Get your fatigues on",
+                        "All black everything",
+                        "Black cards, black cars",
+                        "All black everything",
+                        "And our girls are blackbirds",
+                        "Ridin' with they Dillingers",
+                        "I get more in depth",
+                        "If you boys really real enough",
+                        "This is La Familia",
+                        "I'll explain later",
+                        "But for now let me get back to this paper",
+                        "I'm a couple bands down and I'm tryin' to get back",
+                        "I gave Doug a grip, I lost a flip for five stacks",
+                        "Yeah I'm talkin' five comma six zeros dot zero",
+                        "Here Doug",
+                        "Back to runnin' circles 'round niggas",
+                        "Now we squared up",
+                        "Hold up",
+                        "",
+                        "Life's a game but it's not fair",
+                        "I break the rules so I don't care",
+                        "So I keep doin' my own thing",
+                        "Walkin' tall against the rain",
+                        "Victory's within the mile",
+                        "Almost there, don't give up now",
+                        "Only thing that's on my mind",
+                        "Is who's gon' run this town tonight",
+                        "Hey-hey-hey-hey-hey-hey",
+                        "Hey-hey-hey-hey-hey",
+                        "Hey-hey-hey-hey-hey-hey",
+                        "(Is who's gon' run this town tonight)",
+                        "Hey-hey-hey-hey",
+                        "",
+                        "We are",
+                        "Yeah I said it",
+                        "We are",
+                        "You can call me Caesar",
+                        "In a dark Caesar",
+                        "Please follow the leader",
+                        "So Eric B. we are",
+                        "Microphone fiend",
+                        "It's the return of the God",
+                        "Peace God",
+                        "(Auh! Auh!)",
+                        "And ain't nobody fresher",
+                        "I'm in Maison",
+                        "(Ah!)",
+                        "Martin Margiela",
+                        "On the table screamin'",
+                        "Fuck the other side, they jealous",
+                        "We got a banquette full of broads",
+                        "They got a table full of fellas",
+                        "And they ain't spending no cake",
+                        "They should throw their hand in",
+                        "'Cause they ain't got no spades",
+                        "My whole team got dough",
+                        "So my banquette is lookin' like Millionaires' Row",
+                        "",
+                        "Life's a game but it's not fair",
+                        "I break the rules so I don't care",
+                        "So I keep doin' my own thing",
+                        "Walkin' tall against the rain",
+                        "Victory's within the mile",
+                        "Almost there, don't give up now",
+                        "Only thing that's on my mind",
+                        "Is who's gon' run this town tonight",
+                        "Hey-hey-hey-hey-hey-hey",
+                        "Hey-hey-hey-hey-hey",
+                        "Hey-hey-hey-hey-hey-hey",
+                        "(Is who's gon' run this town tonight)",
+                        "Hey-hey-hey-hey",
+                        "",
+                        "It's crazy how you can go from being Joe Blow",
+                        "To everybody on your dick, no homo",
+                        "I bought my whole family whips, no Volvos",
+                        "Next time I'm in church, please no photos",
+                        "Police escorts",
+                        "Everybody passports",
+                        "This the life that everybody ask for",
+                        "This a fast life",
+                        "We are on a crash course",
+                        "What you think I rap for",
+                        "To push a fucking Rav 4?",
+                        "But I know that if I stay stunting",
+                        "All these girls only gon' want one thing",
+                        "I could spend my whole life good-will-hunting",
+                        "Only good gon' come is as good when I'm cumming",
+                        "She got a ass that'll swallow up a G-string",
+                        "And up top, unh",
+                        "Two bee stings",
+                        "And I'm beasting",
+                        "Off the Riesling",
+                        "And my nigga just made it out the precinct",
+                        "We give a damn about the drama that your dude bring",
+                        "I'm just tryin' to change the color on your mood ring",
+                        "Reebok",
+                        "Baby",
+                        "You need to try some new things",
+                        "Have you ever had shoes without shoe strings?",
+                        "What's that 'Ye?",
+                        "Baby, these heels",
+                        "Is that a may?",
+                        "What?!",
+                        "Baby, these wheels",
+                        "You trippin' when you ain't sippin'",
+                        "Have a refill",
+                        "You feelin' like you runnin', huh?",
+                        "Now you know how we feel",
+                        "",
+                        "We gon' run this town tonight!",
+                        "",
+                        "Wassup!"
+                    ],
+                    "type": "LYRICS",
+                    "url": "https://cdn.shazam.com/lyrics/v1/en/US/android/musixmatch/subtitles/77157009/267/1?token=1bf7f70df084a8851068d5c228af99cd"
+                },
+                {
+                    "tabname": "Video",
+                    "type": "VIDEO",
+                    "youtubeurl": "https://cdn.shazam.com/video/v3/-/US/android/49704893/youtube/video?q=Jay-Z+%22Run+This+Town%22"
+                },
+                {
+                    "tabname": "Related",
+                    "type": "RELATED",
+                    "url": "https://cdn.shazam.com/shazam/v3/en/US/android/-/tracks/track-similarities-id-49704893?startFrom=0&pageSize=20&connected="
+                }
+            ],
+            "share": {
+                "avatar": "https://is4-ssl.mzstatic.com/image/thumb/Features125/v4/9c/72/11/9c721146-12e5-beee-4fa1-4a9042a9f42f/pr_source.png/800x800cc.jpg",
+                "href": "https://www.shazam.com/track/49704893/run-this-town",
+                "html": "https://www.shazam.com/snippets/email-share/49704893?lang=en&country=US",
+                "image": "https://is5-ssl.mzstatic.com/image/thumb/Music114/v4/2b/ea/96/2bea9645-9c62-b1a1-ff70-db3a4db1149c/10UMGIM29885.rgb.jpg/400x400cc.jpg",
+                "snapchat": "https://www.shazam.com/partner/sc/track/49704893",
+                "subject": "Run This Town - Jay-Z Feat. Rihanna & KanYe West",
+                "text": "I used Shazam to discover Run This Town by Jay-Z Feat. Rihanna & KanYe West.",
+                "twitter": "I used @Shazam to discover Run This Town by Jay-Z Feat. Rihanna & KanYe West."
+            },
+            "subtitle": "Jay-Z Feat. Rihanna & KanYe West",
+            "title": "Run This Town",
+            "type": "MUSIC",
+            "url": "https://www.shazam.com/track/49704893/run-this-town",
+            "urlparams": {
+                "{trackartist}": "Jay-Z",
+                "{tracktitle}": "Run+This+Town"
+            }
+        }
+    }
+    const {track} =data
+    res.send(track)
    
 })
 
@@ -688,11 +1033,11 @@ router.get('/song', async (req, res) => {
     console.log(song_id)
     // const options = {
     //     method: 'GET',
-    //     url: SHAZAM_URL,
+    //     url: process.env.SHAZAM_URL,
     //     params: { key: song_id, locale: 'en-US' },
     //     headers: {
-    //         'X-RapidAPI-Key': RAPID_API_KEY,
-    //         'X-RapidAPI-Host': API_HOST
+    //         'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+    //         'X-RapidAPI-Host': process.env.API_HOST
     //     }
     // };
 
