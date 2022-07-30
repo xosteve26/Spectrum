@@ -60,11 +60,11 @@ const Header = () => {
             false
         );
         const sendAudioFile = async (blob) => {
-            console.log("I N FUNCTION",blob)
          
             const response = await axios.post("http://localhost:8000/audio", {"data":blob})
-            const data = await response.json();
+            const data = await response.data;
             console.log(data);
+            navigate(`/song/${data.key}`, { state: { data } });
         }
 
         var stream;
@@ -122,7 +122,7 @@ const Header = () => {
             }
         };
     }, [])
-    
+
 
   return (
 
@@ -132,14 +132,15 @@ const Header = () => {
                 <div className="mx-auto max-w-7xl">
                 
                     <div className="container py-32 mx-auto text-center sm:px-4">
+                      
                       <h1 className="mb-6 text-5xl font-extrabold leading-none max-w-5xl mx-auto tracking-normal text-white sm:text-6xl md:text-6xl lg:text-7xl md:tracking-tight">
                           {" "}
                           The{" "}
                           <span className="w-full text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-500 to-purple-700 lg:inline">
                               Number One Source
                           </span>{" "}
-                          for
-                          <br className="lg:block hidden" /> all your design needs.{" "}
+                          to 
+                          <br className="lg:block hidden" /> identify your tracks.{" "}
                       </h1>
                         
                         <div className="max-w-lg mx-auto mt-5 text-sm text-center text-green-500 md:mt-12 sm:text-base md:max-w-xl md:text-lg xl:text-xl">If you are ready to change the way you design websites, then you'll want to use our block builder to make it fun and easy!</div>
