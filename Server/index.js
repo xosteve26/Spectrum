@@ -3,8 +3,11 @@ const dotenv = require('dotenv')
 const cors = require("cors")
 const app=express();
 const bodyParser = require('body-parser');
+const pool=require('./db')
 
 dotenv.config({ path: './config/config.env' });
+
+
 var PORT=process.env.PORT || 8000;
 
 // support parsing of application/json type post data
@@ -31,6 +34,7 @@ app.use(cors(corsOptions))
 app.use('/', require('./routes/index'));
 app.use('/charts', require('./routes/charts'));
 app.use('/artist', require('./routes/artist'));
+app.use('/users', require('./routes/users'));
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`)
