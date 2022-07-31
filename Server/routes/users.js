@@ -6,6 +6,7 @@ const pool=require('../db')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
+const authMiddleware = require('../middleware/authMiddleware');
 
 router.post('/login',async(req,res)=>{
     const {email,password} = req.body
@@ -21,7 +22,7 @@ router.post('/login',async(req,res)=>{
                     const user = result.rows[0]
                     const validPassword = await bcrypt.compare(password, user.password);
                     if (validPassword) {
-                        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET,{expiresIn:'1m'})
+                        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET,{expiresIn:'30m'})
                         res.json({
                             userId: user.id,
                             token: token
@@ -84,9 +85,9 @@ router.post('/register',async(req,res)=>{
         }
     )
 
-router.post('/save-song',async(req,res)=>{
+router.post('/save-song',authMiddleware,async(req,res)=>{
     const {song_id,track_name,artist_name,userID, rating,genre} = req.body
-    console.log("song_id",song_id,"track_name",track_name,"artist_name",artist_name,"userID",userID,"rating",rating,"genre",genre)
+    
     if (!song_id || !track_name || !artist_name || !userID || !rating.toString() || !genre) {
         return res.status(400).json({ error: "missing required fields" })
     }
@@ -110,6 +111,26 @@ router.post('/save-song',async(req,res)=>{
         }
     )
 
+router.get('/get-songs',authMiddleware,async(req,res)=>{
+    const userID = req.userID
 
+    try{
+        const db=await pool.connect()
+        const result=await db.query('SELECT * FROM wishlist WHERE userid=$1',[userID])
+        console.log(result.rows)
+            if (!result) {
+                return res.status(400).json({ error: "error querying database" })
+            }
+            else {
+                res.status(200).json(result.rows)
+            }
+        
+    }
+    catch(err){
+        console.log(err.message)
+    }
+
+    }
+)
 
 module.exports=router
