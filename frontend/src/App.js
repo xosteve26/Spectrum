@@ -6,6 +6,8 @@ import SongTitleScreen
  from './Screens/SongTitleScreen';
  import NavBar from './components/NavBar';
  import Footer from './components/Footer';
+import UserDashboardScreen from './Screens/UserDashboardScreen';
+import UserProfileScreen from './Screens/UserProfileScreen';
  
 const App=()=> {
   return (
@@ -16,6 +18,8 @@ const App=()=> {
           <Route path='/' element={<Header/>}></Route>
           <Route path='/search/:id' element={<SearchScreen />}></Route>
           <Route path='/song/:id' element={<SongTitleScreen />}></Route>
+          <Route path='/dashboard' element={<UserDashboardScreen />}></Route>
+          <Route path='/profile' element={<UserProfileScreen />}></Route>
         </Routes>
         <Footer />
       </main>
