@@ -1,22 +1,20 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+import { Navigate, useLocation } from 'react-router-dom'
 import MediaPlayer from '../components/MediaPlayer'
 import RelatedWorks from '../components/RelatedWorks';
 import axios from 'axios'
-import MVideo from '../components/MVideo';
 import Lyrics from '../components/Lyrics';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import Footer from '../components/Footer';
 import ArtistSection from '../components/ArtistSection';
 import ArtistRelatedWorks from '../components/ArtistRelatedWorks';
 import RelatedWorksSkeleton from '../components/RelatedWorksSkeleton';
 import ArtistRelatedWorkSkeleton from '../components/ArtistRelatedWorkSkeleton';
+import { useNavigate } from 'react-router-dom';
 
 const SongTitleScreen = () => {
+    const navigate=useNavigate()
     const { id: key } = useParams();
 
     const [data, setData] = useState(key ? key : null)
@@ -24,42 +22,101 @@ const SongTitleScreen = () => {
     const [songData, setSongData] = useState(null)
     const [chartData,setChartData] = useState(null)
     const [artistData, setArtistData] = useState(null)
+    const [totalSong, setTotalSong] = useState(0)
+    const [totalAlbums, setTotalAlbums] = useState(0)
 
     useEffect(() => {
-        async function fetchData() {
-            if (!songData) {
-                const response = await axios.get(`http://localhost:8000/song/`, { params: { songid: key } })
-                setSongData(response.data)
-            }
-
-            if(!chartData && songData){
-                const response = await axios.get(`http://localhost:8000/charts/list/`, { params: { genre: songData.genres.primary }})
-                setChartData(response.data)
-                
-            }
-
-            if(!artistData && songData){
-                const response = await axios.get(`http://localhost:8000/artist/artist-info`, { params: { artistid: songData.artists[0].adamid }})
-                setArtistData(response.data)
-            }
-
+        if (sessionStorage.getItem("songData") && sessionStorage.getItem("chartData") && sessionStorage.getItem("artistData") && (!songData && !chartData && !artistData)) {
+            setSongData(JSON.parse(sessionStorage.getItem("songData")))
+            setChartData(JSON.parse(sessionStorage.getItem("chartData")))
+            setArtistData(JSON.parse(sessionStorage.getItem("artistData")))
+            setTotalSong(JSON.parse(sessionStorage.getItem("totalSongs")))
+            setTotalAlbums(JSON.parse(sessionStorage.getItem("totalAlbums")))
+            console.log("USING CACHE")
         }
-        fetchData()
-    }, [songData])
+        
+        async function fetchSongData() {
+            const response = await axios.get(`http://localhost:8000/song/`, { params: { songid: key } })
+            setSongData(response.data)
+            sessionStorage.setItem("songData", JSON.stringify(response.data)) 
+        }
+
+        async function fetchArtistData() {
+            const response = await axios.get(`http://localhost:8000/artist/artist-info`, { params: { artistid: songData.artists[0].adamid } })
+            setArtistData(response.data)
+            const {songs}=response.data
+            const {albums} = response.data
+            var lenSong=0;
+            for (var song in songs){
+                lenSong++;
+
+            }
+            setTotalSong(lenSong)
+            sessionStorage.setItem("totalSongs",lenSong)
+
+            var lenAlbum=0;
+            for (var album in albums){
+                lenAlbum++;
+            }
+            setTotalAlbums(lenAlbum)
+            sessionStorage.setItem("totalAlbums",lenAlbum)
+            sessionStorage.setItem("artistData", JSON.stringify(response.data))
+        }
+
+        async function fetchChartData () {
+            const response = await axios.get(`http://localhost:8000/charts/list/`, { params: { genre: songData.genres.primary } })
+            setChartData(response.data)
+            sessionStorage.setItem("chartData", JSON.stringify(response.data))
+        }
+        
+        if (!songData) {
+            console.log("FETCHING Song data")
+            fetchSongData()
+        }
+
+        if (!chartData && songData) {
+            console.log("FETCHING Chart data")
+            fetchChartData()
+        }
+
+        if (!artistData && songData) {
+            console.log("FETCHING Artist data")
+            fetchArtistData()
+            
+        }
+        
+      
+    }, [songData, chartData, artistData])
     console.log(songData)
     console.log("ARTIST INFO",artistData)
     console.log("chartData", chartData)
 
     const savedHandler=()=>{
-        console.log("SAVED")
+        try{
+
+            const token = sessionStorage.getItem('token')
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+
+            const response = axios.post(`http://localhost:8000/users/save-song`, { song_id: key, userID: sessionStorage.getItem("userId"), artist_name: songData.subtitle, track_name: songData.title, rating: songData.hub.explicit, genre: songData.genres.primary },{headers})
+            console.log(response)
+            navigate(`/dashboard`)
+        }
+        catch(err){
+            console.log(err.message)
+        }
+        
+        
     }
 
     return (
         <>
-            {songData &&
+            {songData && artistData && chartData&&
                 <>
-                    <section className="text-gray-300 body-font overflow-hidden bg-gray-900">
-                    <ArtistSection image={songData && songData.images.background} artistName={songData && songData.subtitle}/>
+                <section className="text-gray-300 body-font overflow-hidden bg-gradient-to-b from-black to-gray-900">
+                    <ArtistSection image={songData && songData.images.background} artistName={songData && songData.subtitle} tSongs={totalSong} tAlbums={totalAlbums}/>
 
                         <div className="container px-5 py-24 mx-auto">
                             
@@ -122,7 +179,7 @@ const SongTitleScreen = () => {
                                         </span>
                                     </div>
                                     <p className="leading-relaxed">
-                                        <MediaPlayer />
+                                        <MediaPlayer url={songData.hub.actions[1].uri}/>
                                         {/* <MVideo /> */}
                                     </p>
                                     <div className="flex mt-6 items-center pb-5 border-b-2 border-green-500 mb-5">
